@@ -13,6 +13,7 @@ st.set_page_config(
     layout="centered"
 )
 
+
 # --------------------------------------------------
 # 2. Custom UI Styling
 # --------------------------------------------------
@@ -24,21 +25,6 @@ st.markdown("""
     max-width: 900px;
     padding-top: 2rem;
     padding-bottom: 2rem;
-}
-
-/* Main heading */
-h1 {
-    font-weight: 700;
-}
-
-/* Sidebar */
-[data-testid="stSidebar"] {
-    background-color: #EDF4F0;
-}
-
-/* Info box */
-[data-testid="stAlert"] {
-    border-radius: 12px;
 }
 
 /* Chat messages */
@@ -68,26 +54,6 @@ h1 {
 /* Chat input */
 [data-testid="stChatInput"] {
     border-radius: 14px;
-}
-
-/* Header card */
-.header-card {
-    background: linear-gradient(120deg, #245B50, #4A9B83);
-    padding: 25px 28px;
-    border-radius: 16px;
-    margin-bottom: 18px;
-}
-
-.header-card h1 {
-    color: white !important;
-    font-size: 30px;
-    margin: 0;
-}
-
-.header-card p {
-    color: #E4F3ED;
-    font-size: 15px;
-    margin: 8px 0 0 0;
 }
 
 /* Welcome text */
@@ -135,15 +101,25 @@ client = Groq(api_key=api_key)
 # 4. Application Header
 # --------------------------------------------------
 st.markdown("""
+<style>
+.header-card {
+    background: linear-gradient(120deg, #245B50, #4A9B83);
+    padding: 25px;
+    border-radius: 16px;
+    margin-bottom: 15px;
+}
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
 <div class="header-card">
-
-    <h1>🩺 Health Assistant</h1>
-
-    <p>
+    <h2 style="color:white; margin:0;">
+        🩺 Health Assistant
+    </h2>
+    <p style="color:#E4F3ED; margin:8px 0 0 0;">
         Your AI-powered companion for general health
         information and wellness.
     </p>
-
 </div>
 """, unsafe_allow_html=True)
 
