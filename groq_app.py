@@ -12,7 +12,85 @@ st.set_page_config(
     page_icon="🩺",
     layout="centered"
 )
+# --------------------------------------------------
+# Custom UI Styling
+# --------------------------------------------------
 
+st.markdown("""
+<style>
+
+/* Main background */
+.stApp {
+    background-color: #F4F9F7;
+}
+
+/* Main content width */
+.block-container {
+    max-width: 900px;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+/* Main heading */
+h1 {
+    color: #176B5B !important;
+    font-weight: 700 !important;
+}
+
+/* Description text */
+.stCaption {
+    color: #668078;
+}
+
+/* Info box */
+[data-testid="stAlert"] {
+    background-color: #E5F4EF;
+    border: 1px solid #C4E5D9;
+    border-radius: 12px;
+    color: #245C50;
+}
+
+/* Chat messages */
+[data-testid="stChatMessage"] {
+    border-radius: 16px;
+    padding: 15px;
+    border: 1px solid #E2ECE7;
+    background-color: #FFFFFF;
+    margin-bottom: 12px;
+}
+
+/* Buttons */
+.stButton > button {
+    background-color: #176B5B;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 18px;
+}
+
+.stButton > button:hover {
+    background-color: #0F5145;
+    color: white;
+    border: none;
+}
+
+/* Chat input */
+[data-testid="stChatInput"] {
+    border-radius: 14px;
+}
+
+/* Sidebar */
+[data-testid="stSidebar"] {
+    background-color: #EAF4F0;
+}
+
+/* Remove footer */
+footer {
+    visibility: hidden;
+}
+
+</style>
+""", unsafe_allow_html=True)
 # --------------------------------------------------
 # 2. Load API Key
 # Supports local .env and Streamlit Cloud Secrets
@@ -40,13 +118,44 @@ client = Groq(api_key=api_key)
 # --------------------------------------------------
 # 3. Application Header
 # --------------------------------------------------
-st.title("🩺 Health Assistant")
-st.caption("Powered by Groq AI")
-st.info(
-    "Ask general questions about health, symptoms, "
-    "nutrition, wellness, and medical information."
-)
+# --------------------------------------------------
+# 3. Application Header
+# --------------------------------------------------
 
+st.markdown("""
+<div style="
+    background: linear-gradient(120deg, #176B5B, #43A68B);
+    padding: 28px;
+    border-radius: 18px;
+    margin-bottom: 20px;
+">
+
+    <h1 style="
+        color: white !important;
+        margin-bottom: 5px;
+        font-size: 32px;
+    ">
+        🩺 Health Assistant
+    </h1>
+
+    <p style="
+        color: #E3F5EF;
+        font-size: 16px;
+        margin-bottom: 0;
+    ">
+        Your AI-powered companion for general health
+        information and wellness.
+    </p>
+
+</div>
+""", unsafe_allow_html=True)
+
+st.caption("⚡ Powered by Groq AI")
+
+st.info(
+    "Ask questions about health, symptoms, nutrition, "
+    "wellness and general medical information."
+)
 # --------------------------------------------------
 # 4. Health-Only System Prompt
 # --------------------------------------------------
@@ -85,10 +194,42 @@ if "messages" not in st.session_state:
 # --------------------------------------------------
 # 6. Clear Chat Button
 # --------------------------------------------------
-if st.button("🗑️ Clear Chat"):
-    st.session_state.messages = []
-    st.rerun()
+# --------------------------------------------------
+# Sidebar
+# --------------------------------------------------
 
+with st.sidebar:
+
+    st.markdown("## 🩺 Health Assistant")
+
+    st.write("Your personal AI health information assistant.")
+
+    st.divider()
+
+    st.markdown("### 💬 Chat Options")
+
+    if st.button("🗑️ Clear Conversation",
+                 use_container_width=True):
+
+        st.session_state.messages = []
+        st.rerun()
+
+    st.divider()
+
+    st.markdown("### ℹ️ About")
+
+    st.write(
+        "This chatbot provides general health information "
+        "using an AI language model."
+    )
+
+    st.caption("Powered by Groq API")
+
+    st.divider()
+
+    st.caption(
+        "⚠️ Not a replacement for professional medical advice."
+    )
 # --------------------------------------------------
 # 7. Display Previous Messages
 # --------------------------------------------------
