@@ -14,17 +14,12 @@ st.set_page_config(
 )
 
 # --------------------------------------------------
-# Custom UI Styling
+# 2. Custom UI Styling
 # --------------------------------------------------
 st.markdown("""
 <style>
 
-/* Main background */
-.stApp {
-    background-color: #F7F9F8;
-}
-
-/* Main content */
+/* Main content width */
 .block-container {
     max-width: 900px;
     padding-top: 2rem;
@@ -33,7 +28,6 @@ st.markdown("""
 
 /* Main heading */
 h1 {
-    color: #245B50;
     font-weight: 700;
 }
 
@@ -42,14 +36,8 @@ h1 {
     background-color: #EDF4F0;
 }
 
-[data-testid="stSidebar"] h2 {
-    color: #245B50;
-}
-
 /* Info box */
 [data-testid="stAlert"] {
-    background-color: #EAF4EF;
-    border: 1px solid #D4E7DC;
     border-radius: 12px;
 }
 
@@ -58,7 +46,6 @@ h1 {
     border-radius: 14px;
     padding: 15px;
     border: 1px solid #E5ECE8;
-    background-color: #FFFFFF;
     margin-bottom: 10px;
 }
 
@@ -81,11 +68,6 @@ h1 {
 /* Chat input */
 [data-testid="stChatInput"] {
     border-radius: 14px;
-}
-
-/* Footer */
-footer {
-    visibility: hidden;
 }
 
 /* Header card */
@@ -116,12 +98,17 @@ footer {
     margin-top: 25px;
 }
 
+/* Footer */
+footer {
+    visibility: hidden;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
 
 # --------------------------------------------------
-# 2. Load API Key
+# 3. Load API Key
 # --------------------------------------------------
 load_dotenv()
 
@@ -145,7 +132,7 @@ client = Groq(api_key=api_key)
 
 
 # --------------------------------------------------
-# 3. Application Header
+# 4. Application Header
 # --------------------------------------------------
 st.markdown("""
 <div class="header-card">
@@ -169,7 +156,7 @@ st.info(
 
 
 # --------------------------------------------------
-# 4. Health-Only System Prompt
+# 5. Health-Only System Prompt
 # --------------------------------------------------
 SYSTEM_PROMPT = """
 You are a Health Assistant chatbot. Your role is
@@ -199,14 +186,14 @@ Rules:
 
 
 # --------------------------------------------------
-# 5. Initialize Chat History
+# 6. Initialize Chat History
 # --------------------------------------------------
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
 
 # --------------------------------------------------
-# 6. Sidebar
+# 7. Sidebar
 # --------------------------------------------------
 with st.sidebar:
 
@@ -218,9 +205,10 @@ with st.sidebar:
 
     st.markdown("### 💬 Chat Options")
 
-    if st.button("🗑️ Clear Conversation",
-                 use_container_width=True):
-
+    if st.button(
+        "🗑️ Clear Conversation",
+        use_container_width=True
+    ):
         st.session_state.messages = []
         st.rerun()
 
@@ -243,7 +231,7 @@ with st.sidebar:
 
 
 # --------------------------------------------------
-# 7. Welcome Message
+# 8. Welcome Message
 # --------------------------------------------------
 if not st.session_state.messages:
 
@@ -261,7 +249,7 @@ if not st.session_state.messages:
 
 
 # --------------------------------------------------
-# 8. Display Previous Messages
+# 9. Display Previous Messages
 # --------------------------------------------------
 for message in st.session_state.messages:
 
@@ -270,7 +258,7 @@ for message in st.session_state.messages:
 
 
 # --------------------------------------------------
-# 9. Chat Input
+# 10. Chat Input
 # --------------------------------------------------
 user_input = st.chat_input(
     "Ask a health-related question..."
@@ -299,7 +287,7 @@ if user_input:
 
 
     # --------------------------------------------------
-    # 10. Generate AI Response
+    # 11. Generate AI Response
     # --------------------------------------------------
     with st.chat_message("assistant"):
 
